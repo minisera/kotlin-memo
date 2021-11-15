@@ -18,7 +18,6 @@ fun Application.module(testing: Boolean = false) {
         password = "mysql"
     )
 
-
     transaction {
         addLogger(StdOutSqlLogger)
 
