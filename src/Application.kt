@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.table.Memos
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.request.*
@@ -13,7 +14,6 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 fun Application.module(testing: Boolean = false) {
     Database.connect(
         "jdbc:mysql://127.0.0.1:33060/kotlin_memo",
-//        driver = "com.mysql.jdbc.Driver",
         user = "root",
         password = "mysql"
     )
@@ -22,21 +22,14 @@ fun Application.module(testing: Boolean = false) {
     transaction {
         addLogger(StdOutSqlLogger)
 
-        val id = Memo.insert {
-            it[id] = 2
+        val id = Memos.insert {
             it[title] = "初めての本"
             it[body] = "いい本でした"
-        } get Memo.id
+        } get Memos.id
         println("id: $id")
 
-        val memo = Memo.select{ Memo.id eq id }.single()
+        val memo = Memos.select{ Memos.id eq id }.single()
         println("memo: $memo")
 
     }
-}
-
-object Memo: Table("memos") {
-    val id = integer("id").autoIncrement()
-    val title = varchar("title", 128)
-    val body = varchar("body", 256)
 }
