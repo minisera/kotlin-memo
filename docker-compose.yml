@@ -3,7 +3,7 @@ services:
   db:
     image: mysql:8.0.23
     ports:
-      - "3306:3306"
+      - "33060:3306"
     container_name: mysql-host
     environment:
       MYSQL_ROOT_PASSWORD: mysql
