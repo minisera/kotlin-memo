@@ -41,4 +41,10 @@ dependencies {
 
     // mysql
     implementation("mysql:mysql-connector-java:$mysql_connector_version")
+
+    // JUnit5
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit5:3.3.0"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
+    testImplementation"org.assertj:assertjcore:3.10.0"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_version"
 }
