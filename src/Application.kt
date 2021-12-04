@@ -1,11 +1,17 @@
 package com.example
 
+import com.example.module.memoModule
+import com.example.route.root
 import com.example.table.Memos
 import io.ktor.application.*
+import io.ktor.features.*
+import io.ktor.jackson.*
 import io.ktor.response.*
 import io.ktor.request.*
+import io.ktor.routing.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.koin.ktor.ext.Koin
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -17,18 +23,13 @@ fun Application.module(testing: Boolean = false) {
         user = "root",
         password = "mysql"
     )
-
-    transaction {
-        addLogger(StdOutSqlLogger)
-
-        val id = Memos.insert {
-            it[title] = "初めての本"
-            it[body] = "いい本でした"
-        } get Memos.id
-        println("id: $id")
-
-        val memo = Memos.select{ Memos.id eq id }.single()
-        println("memo: $memo")
-
+    install(ContentNegotiation) {
+        jackson()
+    }
+    install(Koin) {
+        modules(memoModule)
+    }
+    routing {
+        root()
     }
 }
