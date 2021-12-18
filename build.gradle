@@ -59,6 +59,9 @@ dependencies {
     implementation "org.koin:koin-core:$koin_ktor_version"
     implementation "org.koin:koin-ktor:$koin_ktor_version"
     implementation "org.koin:koin-test:$koin_ktor_version"
+
+    // Location
+    implementation "io.ktor:ktor-locations:$ktor_version"
 }
 
 factlin {

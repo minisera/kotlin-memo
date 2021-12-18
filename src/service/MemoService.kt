@@ -2,6 +2,7 @@ package com.example.service
 
 import com.example.domain.Memo
 import com.example.repository.MemoRepository
+import io.ktor.features.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class MemoService(private val memoRepository: MemoRepository) {
@@ -24,5 +25,9 @@ class MemoService(private val memoRepository: MemoRepository) {
      * @param memoId
      * return Memo
      */
-    fun get(memoId: Int): Memo? = transaction { memoRepository.findById(memoId) }
+    fun get(memoId: Int): Memo {
+        return transaction {
+            memoRepository.findById(memoId) ?: throw NotFoundException("not found record. id = $memoId")
+        }
+    }
 }

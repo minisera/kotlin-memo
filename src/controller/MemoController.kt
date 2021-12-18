@@ -33,5 +33,5 @@ class MemoController(private val memoService: MemoService) {
      * @param memoId
      * @return Memo
      */
-    fun getMemoById(memoId: Int): Memo? = memoService.get(memoId)
+    fun getMemoById(memoId: Int): Memo = memoService.get(memoId)
 }
